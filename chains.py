@@ -44,15 +44,33 @@ def chainsFor(element, rowIndex, colIndex):
     chains = []
     
     chain = []
-    for i in range(-32, 0):
-        chain = chainFor(element, element+i, rowIndex, colIndex)
-        if chain:
-            chains.append(chain)
-    for i in range(1, 33):
-        chain = chainFor(element, element+i, rowIndex, colIndex)
-        if chain:
-            chains.append(chain)
+    #for i in range(-32, 0):
+    #    chain = chainFor(element, element+i, rowIndex, colIndex)
+    #    if chain:
+    #        chains.append(chain)
+    #for i in range(1, 33):
+    #    chain = chainFor(element, element+i, rowIndex, colIndex)
+    #    if chain:
+    #        chains.append(chain)
     
+    # возрастающие, убывающие +-1
+    # четные / нечетные +-2
+    # кратные 3,4,...10
+    for i in range(1, 10+1):
+        if i < 3:
+            chain = chainFor(element, element+i, rowIndex, colIndex)
+            if chain:
+                chains.append(chain)
+            chain = chainFor(element, element-i, rowIndex, colIndex)
+            if chain:
+                chains.append(chain)
+        elif element % i == 0:
+            chain = chainFor(element, element+i, rowIndex, colIndex)
+            if chain:
+                chains.append(chain)
+            chain = chainFor(element, element-i, rowIndex, colIndex)
+            if chain:
+                chains.append(chain)
     
     #chainFor(element, element+1, rowIndex)
     #chain = chainFor(element, element-3, rowIndex, colIndex)

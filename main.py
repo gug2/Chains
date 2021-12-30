@@ -34,7 +34,7 @@ def clearCellsColor(sheet):
     
     for row in sheet.iter_rows(startCell.row, sheet.max_row, startCell.column, sheet.max_column):
         for cell in row:
-            cell.fill = pyxl.styles.PatternFill(start_color='FFFFFF', end_color='FFFFFF', fill_type='solid')
+            cell.fill = pyxl.styles.PatternFill(start_color=None)
 
 def getStartCell(sheet):
     for i in range(1, sheet.max_row): #because row starts with 1
@@ -74,7 +74,7 @@ def markChain(sheet, chain, matrix):
         i += startCell.row-1
         j += startCell.column-1
         #print(randColor)
-        sheet[i][j].fill = pyxl.styles.PatternFill(start_color=randColor, end_color=randColor, fill_type='solid')
+        sheet[i][j].fill = pyxl.styles.PatternFill(start_color=randColor, fill_type='solid')
 
 # == OPEN PY XL -- END OF MODULE == #
 
