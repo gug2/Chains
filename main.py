@@ -58,6 +58,7 @@ def toMatrix(sheet):
     return matrix
 
 def markChain(sheet, chain, matrix):
+    global markOffset
     startCell = getStartCell(sheet)
     
     r = rand.randint(0, 255)
@@ -65,6 +66,7 @@ def markChain(sheet, chain, matrix):
     b = rand.randint(0, 255)
     randColor = hex(255 << 24 | r << 16 | g << 8 | b)[2::]
 
+    sheetMaxCol = sheet.max_column
     for tupl in chain:
         i, j, elem = tupl
         # invers indexes
@@ -75,7 +77,9 @@ def markChain(sheet, chain, matrix):
         j += startCell.column-1
         #print(randColor)
         sheet[i][j].fill = pyxl.styles.PatternFill(start_color=randColor, fill_type='solid')
-
+        result = sheet.cell(row=i, column=sheetMaxCol+1)
+        result.value = sheet[i][j].value
+        
 # == OPEN PY XL -- END OF MODULE == #
 
 class Main(QMainWindow, gui.Ui_MainWindow):
@@ -103,11 +107,13 @@ class Main(QMainWindow, gui.Ui_MainWindow):
                         for j2 in range(len(chainsarray[i2])):
                             print(chainsarray[i2][j2])
 
+                            # Separate each chain to new sheet for debug
                             #newSheet = workbook.create_sheet('newsheet' + str(i2*len(chainsarray[i2])+j2))
                             #copy
                             #for row in sheet:
                             #    for cell in row:
                             #        newSheet[cell.coordinate].value = cell.value                
+                            # mark cells by colors
                             markChain(sheet, chainsarray[i2][j2], chains.matrix)
                             
         
