@@ -27,19 +27,25 @@ def markChain():
 
 # == OPEN PY XL -- MODULE == #
 import openpyxl as pyxl
+import random as rand
 
-def getFirstCell(sheet):
-    for i in range(1, sheet.max_row): #because row starts from 1
+def clearCellsColor(sheet):
+    startCell = getStartCell(sheet)
+    
+    for row in sheet.iter_rows(startCell.row, sheet.max_row, startCell.column, sheet.max_column):
+        for cell in row:
+            cell.fill = pyxl.styles.PatternFill(start_color='FFFFFF', end_color='FFFFFF', fill_type='solid')
+
+def getStartCell(sheet):
+    for i in range(1, sheet.max_row): #because row starts with 1
         for j in range(0, sheet.max_column):
             if sheet[i][j].value != None:
                 return sheet[i][j]
     
     return None
 
-def toMatrix(workbookName):
-    workbook = pyxl.open(workbookName)
-    sheet = workbook.active
-    startCell = getFirstCell(sheet)
+def toMatrix(sheet):
+    startCell = getStartCell(sheet)
     
     matrix = []
     for row in sheet.iter_rows(startCell.row, sheet.max_row, startCell.column, sheet.max_column):
@@ -51,9 +57,24 @@ def toMatrix(workbookName):
 
     return matrix
 
-def markChain(chain):
+def markChain(sheet, chain, matrix):
+    startCell = getStartCell(sheet)
+    
+    r = rand.randint(0, 255)
+    g = rand.randint(0, 255)
+    b = rand.randint(0, 255)
+    randColor = hex(255 << 24 | r << 16 | g << 8 | b)[2::]
+
     for tupl in chain:
-        index, elem = tupl
+        i, j, elem = tupl
+        # invers indexes
+        i = len(matrix)-1 - i
+        i += 1 # because rows starts with 1
+        # offset for start cell
+        i += startCell.row-1
+        j += startCell.column-1
+        #print(randColor)
+        sheet[i][j].fill = pyxl.styles.PatternFill(start_color=randColor, end_color=randColor, fill_type='solid')
 
 # == OPEN PY XL -- END OF MODULE == #
 
@@ -62,17 +83,35 @@ class Main(QMainWindow, gui.Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
+        workbook = pyxl.open('sample.xlsx')
+        sheet = workbook.active
+        clearCellsColor(sheet)
+        
         matrix = [[1,2,3,4,5], [6,7,8,9,10], [5,2,3,5,7]]
         self.table1 = createTable(self, matrix)
         
-        chains.matrix = toMatrix('sample.xlsx')
+        chains.matrix = toMatrix(sheet)
         chains.matrix = chains.matrix[::-1]
         self.table2 = createTable(self, chains.matrix)
         self.table3 = createTable(self, matrix)
-
+        
         for i in range(len(chains.matrix)):
             for j in range(len(chains.matrix[i])):
-                chains.chainsFor(chains.matrix[i][j], i)
+                chainsarray = chains.chainsFor(chains.matrix[i][j], i, j)
+                if chainsarray:
+                    for i2 in range(len(chainsarray)):
+                        for j2 in range(len(chainsarray[i2])):
+                            print(chainsarray[i2][j2])
+
+                            #newSheet = workbook.create_sheet('newsheet' + str(i2*len(chainsarray[i2])+j2))
+                            #copy
+                            #for row in sheet:
+                            #    for cell in row:
+                            #        newSheet[cell.coordinate].value = cell.value                
+                            markChain(sheet, chainsarray[i2][j2], chains.matrix)
+                            
+        
+        workbook.save('sample2.xlsx')
         
         #grid
         self.grid = QGridLayout(self.centralwidget)

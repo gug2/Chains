@@ -16,10 +16,15 @@ def printTable(matrix):
         print(row)
 
 def findElement(row, which):
-    if which in row:
-        return True
+    for j in range(len(row)):
+        if row[j] == which:
+            return (j, True)
+    
+    return (-1, False)
+    #if which in row:
+    #    return True
 
-    return False
+    #return False
 
 def findNotDigits(row):
     rowStr = ''
@@ -35,18 +40,30 @@ def findNotDigits(row):
     
     return notDigits
 
-def chainsFor(element, rowIndex):
+def chainsFor(element, rowIndex, colIndex):
+    chains = []
+    
+    chain = []
     for i in range(-32, 0):
-        chainFor(element, element+i, rowIndex)
+        chain = chainFor(element, element+i, rowIndex, colIndex)
+        if chain:
+            chains.append(chain)
     for i in range(1, 33):
-        chainFor(element, element+i, rowIndex)
+        chain = chainFor(element, element+i, rowIndex, colIndex)
+        if chain:
+            chains.append(chain)
+    
     
     #chainFor(element, element+1, rowIndex)
-    #chainFor(element, element-1, rowIndex)
+    #chain = chainFor(element, element-3, rowIndex, colIndex)
+    #if chain:
+    #    chains.append(chain)
     #chainFor(element, element+3, rowIndex)
     #chainFor(element, element-3, rowIndex)
 
-def chainFor(element, nextElement, rowIndex):
+    return chains
+
+def chainFor(element, nextElement, rowIndex, colIndex):
     chainList = []
     chain = []
 
@@ -57,21 +74,25 @@ def chainFor(element, nextElement, rowIndex):
         # new step - clear current and next elements
         currentLc = element
         nextLc = nextElement
-        chain.append( (rowIndex, currentLc) )
+        chain.append( (rowIndex, colIndex, currentLc) )
         flagValid = 1
+        curI = rowIndex
         for i in range(rowIndex, len(matrix), step):
             if i == rowIndex: continue
-            if findElement(matrix[i], nextLc):
-                chain.append( (i, nextLc) )
+            if findElement(matrix[i], nextLc)[1]:
+                j = findElement(matrix[i], nextLc)[0]
+            
+                chain.append( (i, j, nextLc) )
+                curI = i
                 nextDelta = nextLc - currentLc
                 currentLc = nextLc
                 nextLc += nextDelta
             else:
                 #print('not finded', matrix[i], nextLc)
-                if len(chain) > 2 and i + step <= len(matrix) + 1:
+                if len(chain) > 2 and curI + step < len(matrix):
                     flagValid = 0
                     # т.к закончилась раньше конца таблицы :(
-                    print('* последовательность недействительна', chain)
+                    #print('* последовательность недействительна', chain)
                 break
         # current step end - clear local chain and add to list
         if flagValid == 1 and len(chain) > 2:
@@ -79,9 +100,11 @@ def chainFor(element, nextElement, rowIndex):
         chain = []
     
     
-    if len(chainList) > 0:
-        print('* List of chains', nextElement-element, 'for', element, 'in row', rowIndex)
-        printTable(chainList)
+    #if len(chainList) > 0:
+    #    print('* List of chains', nextElement-element, 'for', element, 'in row', rowIndex)
+    #    printTable(chainList)
+        
+    return chainList
 
 #print("==Дано==")
 #printTable(matrix)
@@ -91,4 +114,4 @@ def chainFor(element, nextElement, rowIndex):
 #for i in range(len(matrix)):
 #    for j in range(len(matrix[i])):
 #        #print("==Последовательности для числа", matrix[i][j], 'в строке', i, "==")
-#        chainsFor(matrix[i][j], i)
+#        chainsFor(matrix[i][j], i, j)
