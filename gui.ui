@@ -13,60 +13,7 @@
   <property name="windowTitle">
    <string>Последовательности</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>20</y>
-      <width>251</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Предсказанные значения</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>220</y>
-      <width>251</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Введенные значения</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>20</y>
-      <width>311</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Последовательности</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="enterButton">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>210</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Enter</string>
-    </property>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -76,8 +23,20 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="fileMenu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="importAction"/>
+   </widget>
+   <addaction name="fileMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="importAction">
+   <property name="text">
+    <string>Импорт Excel Таблиц</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
