@@ -29,12 +29,24 @@
     </property>
     <addaction name="importAction"/>
    </widget>
+   <widget class="QMenu" name="exportMenu">
+    <property name="title">
+     <string>Экспорт</string>
+    </property>
+    <addaction name="exportPathAction"/>
+   </widget>
    <addaction name="fileMenu"/>
+   <addaction name="exportMenu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="importAction">
    <property name="text">
     <string>Импорт Excel Таблиц</string>
+   </property>
+  </action>
+  <action name="exportPathAction">
+   <property name="text">
+    <string>Путь файлов результата</string>
    </property>
   </action>
  </widget>

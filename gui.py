@@ -23,14 +23,20 @@ class Ui_MainWindow(object):
         self.menubar.setObjectName("menubar")
         self.fileMenu = QtWidgets.QMenu(self.menubar)
         self.fileMenu.setObjectName("fileMenu")
+        self.exportMenu = QtWidgets.QMenu(self.menubar)
+        self.exportMenu.setObjectName("exportMenu")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.importAction = QtWidgets.QAction(MainWindow)
         self.importAction.setObjectName("importAction")
+        self.exportPathAction = QtWidgets.QAction(MainWindow)
+        self.exportPathAction.setObjectName("exportPathAction")
         self.fileMenu.addAction(self.importAction)
+        self.exportMenu.addAction(self.exportPathAction)
         self.menubar.addAction(self.fileMenu.menuAction())
+        self.menubar.addAction(self.exportMenu.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -39,7 +45,9 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Последовательности"))
         self.fileMenu.setTitle(_translate("MainWindow", "Файл"))
+        self.exportMenu.setTitle(_translate("MainWindow", "Экспорт"))
         self.importAction.setText(_translate("MainWindow", "Импорт Excel Таблиц"))
+        self.exportPathAction.setText(_translate("MainWindow", "Путь файлов результата"))
 
 
 if __name__ == "__main__":
