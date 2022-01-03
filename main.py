@@ -25,13 +25,6 @@ def createTable(self, matrix):
     
     return table
 
-#def updateTable(self, widgetIndex, matrix, posRow, posColumn, rowSpan=1, colSpan=1):
-#    widget = self.grid.takeAt(widgetIndex).widget()
-#    if widget:
-#        widget.setParent(None)
-#        table = createTable(self, matrix)
-#        self.grid.addWidget(table, posRow, posColumn, rowSpan, colSpan)
-
 def updateLayout(self):
     # remove all widgets
     for i in reversed(range(self.grid.count())):
@@ -42,13 +35,13 @@ def updateLayout(self):
 def initWidgets(self):
     # 1 table
     self.table1 = createTable(self, self.table1Matrix)
-
+    
     # 2 table
     self.table2 = createTable(self, self.table2Matrix)
-        
+    
     # 3 table
     self.table3 = createTable(self, self.table3Matrix)
-        
+    
     #grid
     self.grid.addWidget(self.label_1, 0, 0)
     self.grid.addWidget(self.table1, 1, 0)
@@ -57,7 +50,7 @@ def initWidgets(self):
     self.grid.addWidget(self.table2, 4, 0)
     self.grid.addWidget(self.label_3, 0, 1)
     self.grid.addWidget(self.table3, 1, 1, 4, 1)
-
+    
 # == PY QT -- END OF MODULE == #
 
 class Main(QMainWindow, gui.Ui_MainWindow):

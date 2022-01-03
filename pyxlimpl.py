@@ -20,7 +20,7 @@ def clearCellsColor(sheet):
 def getStartCell(sheet):
     for i in range(1, sheet.max_row+1): #because row starts with 1
         for j in range(0, sheet.max_column+1):
-            if sheet[i][j].value and type(sheet[i][j].value) == int:
+            if sheet[i][j] and sheet[i][j].value and type(sheet[i][j].value) == int:
                 return sheet[i][j]
     
     return None
