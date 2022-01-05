@@ -31,10 +31,13 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.importAction = QtWidgets.QAction(MainWindow)
         self.importAction.setObjectName("importAction")
-        self.exportPathAction = QtWidgets.QAction(MainWindow)
-        self.exportPathAction.setObjectName("exportPathAction")
+        self.exportDirectoryAction = QtWidgets.QAction(MainWindow)
+        self.exportDirectoryAction.setObjectName("exportDirectoryAction")
+        self.overwriteAction = QtWidgets.QAction(MainWindow)
+        self.overwriteAction.setObjectName("overwriteAction")
         self.fileMenu.addAction(self.importAction)
-        self.exportMenu.addAction(self.exportPathAction)
+        self.exportMenu.addAction(self.exportDirectoryAction)
+        self.exportMenu.addAction(self.overwriteAction)
         self.menubar.addAction(self.fileMenu.menuAction())
         self.menubar.addAction(self.exportMenu.menuAction())
 
@@ -47,7 +50,8 @@ class Ui_MainWindow(object):
         self.fileMenu.setTitle(_translate("MainWindow", "Файл"))
         self.exportMenu.setTitle(_translate("MainWindow", "Экспорт"))
         self.importAction.setText(_translate("MainWindow", "Импорт Excel Таблиц"))
-        self.exportPathAction.setText(_translate("MainWindow", "Путь файлов результата"))
+        self.exportDirectoryAction.setText(_translate("MainWindow", "Путь файлов результата"))
+        self.overwriteAction.setText(_translate("MainWindow", "Перезаписывать файл"))
 
 
 if __name__ == "__main__":
