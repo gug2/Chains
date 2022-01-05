@@ -33,7 +33,8 @@
     <property name="title">
      <string>Экспорт</string>
     </property>
-    <addaction name="exportPathAction"/>
+    <addaction name="exportDirectoryAction"/>
+    <addaction name="overwriteAction"/>
    </widget>
    <addaction name="fileMenu"/>
    <addaction name="exportMenu"/>
@@ -44,9 +45,14 @@
     <string>Импорт Excel Таблиц</string>
    </property>
   </action>
-  <action name="exportPathAction">
+  <action name="exportDirectoryAction">
    <property name="text">
     <string>Путь файлов результата</string>
+   </property>
+  </action>
+  <action name="overwriteAction">
+   <property name="text">
+    <string>Перезаписывать файл</string>
    </property>
   </action>
  </widget>
